@@ -42,6 +42,7 @@
       imports = [
         inputs.git-hooks.flakeModule
         inputs.treefmt-nix.flakeModule
+        inputs.flake-parts.flakeModules.easyOverlay
       ];
       systems = [
         "x86_64-linux"
@@ -71,6 +72,10 @@
           packages = {
             default = self'.packages.neovim;
             neovim = nixvimPkgs.makeNixvimWithModule nixvimModule;
+          };
+
+          overlayAttrs = {
+            inherit (config.packages) neovim;
           };
 
           devShells.default = pkgs.mkShell {
@@ -109,7 +114,7 @@
         };
       flake = {
         githubActions = nix-github-actions.lib.mkGithubMatrix {
-          checks = self.packages ++ self.checks;
+          checks = self.packages;
         };
       };
     };
