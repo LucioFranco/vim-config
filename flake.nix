@@ -17,6 +17,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -44,14 +52,26 @@
       perSystem =
         {
           config,
-          self',
-          inputs',
           pkgs,
           system,
+          self',
           ...
         }:
+        let
+          nixvimPkgs = inputs.nixvim.legacyPackages.${system};
+          nixvimLib = inputs.nixvim.lib.${system};
+          nixvimModule = {
+            inherit pkgs;
+            module = import ./config;
+          };
+        in
         {
-          packages.default = pkgs.hello;
+          checks.nixvim = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
+
+          packages = {
+            default = self'.packages.neovim;
+            neovim = nixvimPkgs.makeNixvimWithModule nixvimModule;
+          };
 
           devShells.default = pkgs.mkShell {
             name = "vim-config";
@@ -88,7 +108,9 @@
           };
         };
       flake = {
-        githubActions = nix-github-actions.lib.mkGithubMatrix { checks = self.packages; };
+        githubActions = nix-github-actions.lib.mkGithubMatrix {
+          checks = self.packages ++ self.checks;
+        };
       };
     };
 }
