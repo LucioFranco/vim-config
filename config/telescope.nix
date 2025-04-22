@@ -37,6 +37,11 @@
     settings.pickers.colorscheme.enable_preview = true;
 
     keymaps = {
+      "<C-p>" = {
+        action = "git_files";
+        options.desc = "Open file search";
+
+      };
       "<leader>fb" = {
         action = "buffers";
         options.desc = "Lists open buffers in current neovim instance";

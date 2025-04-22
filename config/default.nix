@@ -134,6 +134,12 @@
         mode = [ "n" ];
         options.desc = "Open fugitive in a new tab";
       }
+      {
+        key = "<C-t>";
+        action = "<cmd>CHADopen<cr>";
+        mode = [ "n" ];
+        options.desc = "Open CHADTree";
+      }
     ]
     (lib.mkIf config.plugins.notify.enable [
       {
