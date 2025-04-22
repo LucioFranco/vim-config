@@ -74,12 +74,12 @@
           };
 
           packages = {
-            default = self'.packages.neovim;
-            neovim = nixvimPkgs.makeNixvimWithModule nixvimModule;
+            default = self'.packages.lucio-neovim;
+            lucio-neovim = nixvimPkgs.makeNixvimWithModule nixvimModule;
           };
 
           overlayAttrs = {
-            inherit (config.packages) neovim;
+            inherit (config.packages) lucio-neovim;
           };
 
           devShells.default = pkgs.mkShell {
