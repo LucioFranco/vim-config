@@ -39,6 +39,8 @@
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
+
+      debug = true;
       imports = [
         inputs.git-hooks.flakeModule
         inputs.treefmt-nix.flakeModule
@@ -67,7 +69,9 @@
           };
         in
         {
-          checks.nixvim = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
+          checks = {
+            default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
+          };
 
           packages = {
             default = self'.packages.neovim;
@@ -114,7 +118,7 @@
         };
       flake = {
         githubActions = nix-github-actions.lib.mkGithubMatrix {
-          checks = self.packages;
+          checks = inputs.nixpkgs.lib.recursiveUpdate self.checks self.packages;
         };
       };
     };
