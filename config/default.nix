@@ -47,7 +47,8 @@
     chadtree = {
       enable = true;
     };
-    dressing.enable = true;
+    dressing.enable = false;
+    snacks.enable = true;
     fugitive.enable = true;
     indent-blankline = {
       enable = true;
