@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
   plugins = {
     blink-cmp = {
@@ -33,6 +34,16 @@
               name = "tmux";
               module = "blink.compat.source";
               score_offset = 0;
+            };
+            # Only enable cmp in everything that isn't `!`
+            # Ref: https://cmp.saghen.dev/recipes.html#disable-completion-in-only-shell-command-mode
+            cmdline = {
+              enabled = lib.nixvim.mkRaw ''
+                function()
+                  return vim.fn.getcmdtype() ~= ':' or not vim.fn.getcmdline():match("^[%%0-9,'<>%-]*!")
+                end
+              '';
+
             };
           };
         };
