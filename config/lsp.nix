@@ -38,12 +38,12 @@
             options.desc = "Format the current buffer";
           }
         ];
+      };
 
-        servers = {
-          nixd = {
-            enable = true;
-            settings.formatting.command = [ "nixfmt" ];
-          };
+      servers = {
+        nixd = {
+          enable = true;
+          settings.formatting.command = [ "nixfmt" ];
         };
       };
     };
