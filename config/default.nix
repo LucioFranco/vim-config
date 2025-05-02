@@ -10,6 +10,7 @@
     ./core.nix
     ./lsp.nix
     ./lualine.nix
+    ./molten.nix
     ./smart-splits.nix
     ./telescope.nix
   ];
@@ -41,7 +42,7 @@
 
   plugins = {
     bufferline = {
-      enable = true;
+      enable = false;
       settings.options.diagnostics = lib.mkIf config.plugins.lsp.enable "nvim_lsp";
     };
     chadtree = {
@@ -52,7 +53,27 @@
     fugitive.enable = true;
     indent-blankline = {
       enable = true;
+      luaConfig.pre = ''
+        local hooks = require "ibl.hooks"
+        -- create the highlight groups in the highlight setup hook, so they are reset
+        -- every time the colorscheme changes
+        hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+            vim.api.nvim_set_hl(0, "SolarizedLight", { fg = "#86E75A" })
+        end)
+      '';
       settings.indent.char = "▏";
+      settings.indent.highlight = "SolarizedLight";
+      # settings= {
+      #   indent = {
+      #     highlight = ["CursorColumn" "Whitespace"];
+      #     char = "";
+      #   };
+      #
+      #   whitespace = {
+      #     highlight = ["CursorColumn" "Whitespace"];
+      #     remove_blankline_trail = false;
+      #   };
+      # };
     };
     gitsigns.enable = true;
     guess-indent.enable = true;
@@ -61,6 +82,10 @@
     noice = {
       enable = true;
       settings = {
+        cmdline.enabled = false;
+        popupmenu.enabled = false;
+        notify.enabled = true;
+        messages.enabled = false;
         lsp.override = {
           "vim.lsp.util.convert_input_to_markdown_lines" = true;
           "vim.lsp.util.stylize_markdown" = true;

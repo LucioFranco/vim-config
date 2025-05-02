@@ -102,6 +102,7 @@
   ];
 
   opts = {
+    colorcolumn = "120";
     history = 500;
     autoread = true;
     signcolumn = "yes";

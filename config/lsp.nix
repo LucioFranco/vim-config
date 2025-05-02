@@ -45,6 +45,26 @@
           enable = true;
           settings.formatting.command = [ "nixfmt" ];
         };
+        pyright = {
+          enable = true;
+
+          extraOptions.settings = {
+            pyright.disableOrganizeInports = true;
+            python.analysis = {
+              # Ignore all files for analysis to exclusively use Ruff for linting
+              ignore.__raw = ''{ '*' }'';
+            };
+          };
+        };
+        ruff = {
+          enable = true;
+          onAttach.function = ''
+            if client.name == 'ruff' then
+              -- Disable hover in favor of Pyright
+              client.server_capabilities.hoverProvider = false
+            end
+          '';
+        };
       };
     };
 
