@@ -143,7 +143,18 @@
     zen-mode.enable = true;
   };
 
-  extraPlugins = with pkgs.vimPlugins; [ solarized-nvim ];
+  extraPlugins = with pkgs.vimPlugins; [
+    solarized-nvim
+    (pkgs.vimUtils.buildVimPlugin {
+      name = "jj-diffconflicts";
+      src = pkgs.fetchFromGitHub {
+        owner = "rafikdraoui";
+        repo = "jj-diffconflicts";
+        rev = "20acec2eba0f1af6621880e59ae692ab34210416";
+        sha256 = "sha256-UWYsJbt9ol9WuuttG43YT/YNSmNsFp9KlKt1b13+SnI=";
+      };
+    })
+  ];
 
   keymaps = lib.mkMerge [
     [
