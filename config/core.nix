@@ -130,6 +130,11 @@
     linebreak = true;
     mouse = "nv";
     spelllang = "eu_us";
+
+    wrap = false;
+    sidescroll = 1;
+    listchars = "extends:>,precedes:<";
+    sidescrolloff = 1;
   };
 
   globals = {
