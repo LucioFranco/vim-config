@@ -1,6 +1,15 @@
 {
   description = "Description for the project";
 
+  nixConfig = {
+    extra-trusted-substituters = [
+      "https://luciofranco-vim-config.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "luciofranco-vim-config.cachix.org-1:YdHNe6sVl60hQpxA7QwHSesd1CUi4idCOhw1yUo2FZ0="
+    ];
+  };
+
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -39,8 +48,7 @@
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
-
-      debug = true;
+      debug = false;
       imports = [
         inputs.git-hooks.flakeModule
         inputs.treefmt-nix.flakeModule
@@ -69,6 +77,17 @@
           };
         in
         {
+          _module.args.pkgs = import inputs.nixpkgs {
+            inherit system;
+
+            overlays = [
+              (final: _prev: {
+                nixfmt = final.nixfmt-rfc-style;
+              })
+            ];
+            config = { };
+          };
+
           checks = {
             default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
           };
@@ -112,7 +131,10 @@
             projectRootFile = "flake.nix";
             flakeCheck = false; # Covered by git-hooks check
             programs = {
-              nixfmt.enable = true;
+              nixfmt = {
+                enable = true;
+                package = pkgs.nixfmt;
+              };
             };
           };
         };
