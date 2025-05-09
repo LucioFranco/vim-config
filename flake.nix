@@ -65,7 +65,6 @@
           config,
           pkgs,
           system,
-          self',
           ...
         }:
         let
@@ -97,7 +96,7 @@
           };
 
           overlayAttrs = {
-            inherit (config.packages) lucio-neovim;
+            lucio-neovim = config.packages.default;
           };
 
           devShells.default = pkgs.mkShell {
