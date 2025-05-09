@@ -70,6 +70,7 @@
 
     rustaceanvim.enable = true;
     trouble.enable = true;
+    crates.enable = true;
   };
 
   keymaps = [

@@ -145,6 +145,7 @@
 
   extraPlugins = with pkgs.vimPlugins; [
     solarized-nvim
+    hunk-nvim
     (pkgs.vimUtils.buildVimPlugin {
       name = "jj-diffconflicts";
       src = pkgs.fetchFromGitHub {
@@ -155,6 +156,10 @@
       };
     })
   ];
+
+  extraConfigLua = ''
+    require('hunk').setup()
+  '';
 
   keymaps = lib.mkMerge [
     [
