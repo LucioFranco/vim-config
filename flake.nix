@@ -93,8 +93,7 @@
           };
 
           packages = {
-            default = self'.packages.lucio-neovim;
-            lucio-neovim = nixvimPkgs.makeNixvimWithModule nixvimModule;
+            default = nixvimPkgs.makeNixvimWithModule nixvimModule;
           };
 
           overlayAttrs = {
