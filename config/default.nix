@@ -184,7 +184,7 @@
     ]
     (lib.mkIf config.plugins.notify.enable [
       {
-        key = "<C-d>";
+        key = "<leader>d";
         action = lib.nixvim.mkRaw "require('notify').dismiss";
         mode = [
           "n"
