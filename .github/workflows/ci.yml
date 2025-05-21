@@ -48,4 +48,4 @@ jobs:
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
           extraPullNames: nix-community
       - run: |
-          nix run .#nix-fast-build -- --no-nom --skip-cached --retries=3 --flake '.#${{ matrix.attr }}'
+          nix run .#nix-fast-build -- --verbose --no-nom --skip-cached --retries=3 --flake '.#${{ matrix.attr }}'
