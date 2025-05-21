@@ -93,6 +93,9 @@
 
           packages = {
             default = nixvimPkgs.makeNixvimWithModule nixvimModule;
+
+            # CI utils
+            inherit (pkgs) nix-fast-build;
           };
 
           overlayAttrs = {
