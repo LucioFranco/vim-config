@@ -146,9 +146,10 @@
         flake = {
           githubActions = nix-github-actions.lib.mkGithubMatrix (
             let
-              select = (pkgs: filter: lib.genAttrs config.systems (
-                system: (lib.genAttrs filter (pkg: pkgs.${system}.${pkg}))
-              ));
+              select = (
+                pkgs: filter:
+                lib.genAttrs config.systems (system: (lib.genAttrs filter (pkg: pkgs.${system}.${pkg})))
+              );
               checkDrvs = select self.checks [ "pre-commit" ];
               pkgsDrvs = select self.packages [ "neovim" ];
             in
