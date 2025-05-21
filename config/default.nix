@@ -10,7 +10,6 @@
     ./core.nix
     ./lsp.nix
     ./lualine.nix
-    ./molten.nix
     ./smart-splits.nix
     ./telescope.nix
   ];
