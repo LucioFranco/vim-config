@@ -50,6 +50,5 @@ jobs:
           nix run .#nix-fast-build -- \
             --no-nom \
             --skip-cached \ 
-            --option accept-flake-config true \
             --retries=3 \
             --flake '.#${{ matrix.attr }}'
