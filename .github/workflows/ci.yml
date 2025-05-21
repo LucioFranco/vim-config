@@ -7,6 +7,7 @@ on:
       - master
 
 env:
+  NIX_DEBUG: 1
   nix-conf: |-
     accept-flake-config = true
     always-allow-substitutes = true
@@ -47,4 +48,4 @@ jobs:
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
           extraPullNames: nix-community
       - run: |
-          nix run .#nix-fast-build -- --no-nom --skip-cached --flake '.#${{ matrix.attr }}'
+          nix run .#nix-fast-build -- --no-nom --skip-cached --retries=3 --flake '.#${{ matrix.attr }}'
