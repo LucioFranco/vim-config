@@ -101,6 +101,8 @@
     }
   ];
 
+  clipboard.register = "unnamedplus";
+
   opts = {
     colorcolumn = "120";
     history = 500;
