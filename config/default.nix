@@ -190,7 +190,6 @@
         mode = [
           "n"
           "v"
-          "i"
         ];
         options.desc = "Dismiss nvim-notify notifications";
       }
