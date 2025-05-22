@@ -65,12 +65,17 @@
             end
           '';
         };
+
+        helm_ls = {
+          enable = true;
+        };
       };
     };
 
     rustaceanvim.enable = true;
     trouble.enable = true;
     crates.enable = true;
+    helm.enable = true;
   };
 
   keymaps = [
