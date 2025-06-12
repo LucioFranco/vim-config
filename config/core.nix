@@ -104,6 +104,8 @@
   clipboard.register = "unnamedplus";
 
   opts = {
+    background ="light";
+
     colorcolumn = "120";
     history = 500;
     autoread = true;

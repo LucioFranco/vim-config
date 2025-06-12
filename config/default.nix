@@ -8,8 +8,10 @@
   imports = [
     ./cmp.nix
     ./core.nix
+    ./flash.nix
     ./lsp.nix
     ./lualine.nix
+    ./theme.nix
     ./smart-splits.nix
     ./telescope.nix
   ];
@@ -127,7 +129,9 @@
         ];
         highlight = true;
         # highlight_ctermbg = "DiffDelete";
-        highlight_bg = lib.nixvim.mkRaw "vim.api.nvim_get_hl(0, {name= 'DiffDelete'}).bg";
+        highlight_bg = lib.nixvim.mkRaw ''
+          vim.api.nvim_get_hl(0, {name= 'DiffDelete'}).bg
+        '';
         highlight_ctermbg = highlight_bg;
         trim_first_line = false;
         trim_last_line = false;
@@ -145,8 +149,8 @@
   };
 
   extraPlugins = with pkgs.vimPlugins; [
-    solarized-nvim
     hunk-nvim
+
     (pkgs.vimUtils.buildVimPlugin {
       name = "jj-diffconflicts";
       src = pkgs.fetchFromGitHub {
