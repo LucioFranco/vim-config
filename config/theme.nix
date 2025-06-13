@@ -13,9 +13,9 @@
   ];
 
   extraConfigLua = ''
-  -- require('solarized').setup({
-  --   options = {
-  --   },
-  -- });
+    -- require('solarized').setup({
+    --   options = {
+    --   },
+    -- });
   '';
 }
