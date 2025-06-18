@@ -78,7 +78,17 @@
     };
     gitsigns.enable = true;
     guess-indent.enable = true;
-    hardtime.enable = true;
+    hardtime = {
+      enable = true;
+      settings.disabled_filetypes = [
+        "qf"
+        "netrw"
+        "NvimTree"
+        "lazy"
+        "mason"
+        "CHADTree"
+      ];
+    };
     helpview.enable = true;
     multicursors.enable = true;
     nix-develop.enable = true;
